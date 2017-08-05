@@ -7,7 +7,6 @@ body {
 }
 
 .main {
-  height: 500px; /*temp*/
   background-color: #3CC3BF;
 }
 
@@ -53,21 +52,22 @@ body {
 }
 
 .stream-data {
+  margin: 0 auto;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  /*justify-content: flex-start;*/
 }
 
 .streamer {
+  width: 100%;
   text-align: center;
   margin-top: 10px;
   flex-grow: 3;
 }
 
-.stream-name {
-  flex-grow: 2;
-  margin: 0 10px;
+.stream-info {
+  /*flex-grow: 2;*/
+  margin: 0 auto;
   color: #635265;
   font-style: italic;
   text-align: center;
@@ -83,17 +83,20 @@ body {
   }
 
   .stream-data {
+    width: 90%;
     margin: auto;
     flex-wrap: nowrap;
   }
 
   .streamer {
+    width: auto;
     flex-grow: 0;
     margin: 0 10px;
   }
 
-  .stream-name {
-    margin-right: 10px;
+  .stream-info {
+    margin: 0 auto;
+    margin-right: 20px;
     flex-grow: 0;
   }
 
