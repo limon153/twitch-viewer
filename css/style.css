@@ -1,0 +1,38 @@
+html {
+  font-size: 20px;
+}
+
+body {
+  background-color: #298CAB;
+}
+
+.main {
+  width: 350px;
+  height: 500px; /*temp*/
+  background-color: #F4B338;
+  margin: 30px auto;
+}
+
+.menu {
+  display: flex;
+  align-items: flex-start;
+}
+
+.nav-btn {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  background-color: #E392AC;
+  width: 33.33333333%;
+  margin: 0;
+}
+
+.nav-btn:hover {
+  background-color: #E331C6;
+}
+
+.nav-btn:checked {
+  background-color: red;
+}
