@@ -65,7 +65,7 @@ $(function() {
       '</div>'
     );
     if (stream.online) {
-      $('.stream:nth-child(' + (id + 1) + ') .streamer').addClass('online');
+      $('.streamer:contains("' + stream.name + '")').addClass('online');
     }
   }
 
@@ -74,5 +74,4 @@ $(function() {
     $('.nav-btn').removeClass('checked');
     $('#' + btnChecked).addClass('checked');
   });
-
 });
