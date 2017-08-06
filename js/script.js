@@ -4,39 +4,69 @@ $(function() {
   var favouriteStreams = ['c_a_k_e', 'lasqa', 'mehvsgame',
                           'mob5ter', 'tysegall', 'relaxbeats'];
 
+  var streams = [];
+  $.ajax({
+   type: 'GET',
+   url: 'https://api.twitch.tv/kraken/users?login=' + favouriteStreams.join(','),
+   headers: {
+     'Accept': 'application/vnd.twitchtv.v5+json',
+     'Client-ID': 'axjhfp777tflhy0yjb5sftsil'
+   },
+   success: function(data) {
+     console.log(data);
+     var streamers = data.users;
+     for (var i = 0; i < streamers.length; i++) {
 
-
-    $.ajax({
-     type: 'GET',
-     url: 'https://api.twitch.tv/kraken/users?login=' + favouriteStreams.join(','),
-     headers: {
-       'Accept': 'application/vnd.twitchtv.v5+json',
-       'Client-ID': 'axjhfp777tflhy0yjb5sftsil'
-     },
-     success: function(data) {
-       console.log(data);
-       var streamers = data.users;
-       for (var i = 0; i < streamers.length; i++) {
-        var streamerName = streamers[i].display_name;
-        var streamerLogo = streamers[i].logo;
-        displayStreamInfo(streamerName, streamerLogo);
-        console.log(streamerName);
-        console.log(streamerLogo);
-       }
-
+      streams.push({
+        name: streamers[i].display_name,
+        logo: streamers[i].logo,
+        online: false,
+        status: ''
+      });
+      // console.log(streamerName);
+      // console.log(streamerLogo);
      }
+     console.log(streams);
+
+   }
   });
 
-  function displayStreamInfo(name, logo) {
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/streams?channel=' + favouriteStreams.join(','),
+    headers: {
+      // 'Accept': 'application/vnd.twitchtv.v5+json',
+      'Client-ID': 'axjhfp777tflhy0yjb5sftsil',
+    },
+    success: function(data) {
+      console.log(data);
+      for (var i = 0; i < streams.length; i++) {
+        for (var j = 0; j < data.streams.length; j++) {
+          if (data.streams[j].channel.display_name == streams[i].name) {
+            streams[i].online = true;
+            streams[i].status = data.streams[j].channel.status;
+          }
+        }
+        displayStreamInfo(streams[i].name, streams[i].logo, streams[i].online, streams[i].status, i);
+      }
+      console.log(streams);
+    }
+  });
+
+  function displayStreamInfo(name, logo, online, status, id) {
+    status = (online) ? status : 'Offline';
     $('.stream-container').append(
       '<div class="stream">' +
         '<img class="stream-logo" src="' + logo + '" alt="stream-logo">' +
         '<div class="stream-data">' +
           '<a target="_blank" href="https://twitch.tv/' + name + '" class="streamer">' + name + '</a>' +
-          '<p class="stream-info">Offline</p>' +
+          '<p class="stream-info">' + status + '</p>' +
         '</div>' +
       '</div>'
     );
+    if (online) {
+      $('.stream:nth-child(' + (id + 1) + ') .streamer').addClass('online');
+    }
   }
 
   $('.nav-btn').on('click', function(e) {

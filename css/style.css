@@ -60,9 +60,20 @@ body {
 
 .streamer {
   width: 100%;
+  color: #625E5E;
   text-align: center;
   margin-top: 10px;
   flex-grow: 3;
+  text-decoration: none;
+}
+
+.streamer.online {
+  font-weight: bold;
+  color: #223FBA;
+}
+
+.streamer.online:hover {
+  text-decoration: underline;
 }
 
 .stream-info {
