@@ -47,24 +47,24 @@ $(function() {
             streams[i].status = data.streams[j].channel.status;
           }
         }
-        displayStreamInfo(streams[i].name, streams[i].logo, streams[i].online, streams[i].status, i);
+        displayStreamInfo(streams[i], i);
       }
       console.log(streams);
     }
   });
 
-  function displayStreamInfo(name, logo, online, status, id) {
-    status = (online) ? status : 'Offline';
+  function displayStreamInfo(stream, id) {
+    var streamStatus = (stream.online) ? stream.status : 'Offline';
     $('.stream-container').append(
       '<div class="stream">' +
-        '<img class="stream-logo" src="' + logo + '" alt="stream-logo">' +
+        '<img class="stream-logo" src="' + stream.logo + '" alt="stream-logo">' +
         '<div class="stream-data">' +
-          '<a target="_blank" href="https://twitch.tv/' + name + '" class="streamer">' + name + '</a>' +
-          '<p class="stream-info">' + status + '</p>' +
+          '<a target="_blank" href="https://twitch.tv/' + stream.name + '" class="streamer">' + stream.name + '</a>' +
+          '<p class="stream-info">' + streamStatus + '</p>' +
         '</div>' +
       '</div>'
     );
-    if (online) {
+    if (stream.online) {
       $('.stream:nth-child(' + (id + 1) + ') .streamer').addClass('online');
     }
   }
