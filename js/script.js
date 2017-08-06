@@ -73,5 +73,31 @@ $(function() {
     btnChecked = e.target.id;
     $('.nav-btn').removeClass('checked');
     $('#' + btnChecked).addClass('checked');
+    switch (btnChecked) {
+      case 'all':
+        $('.stream-container').empty();
+        for (var i = 0; i < streams.length; i++) {
+          displayStreamInfo(streams[i], i);
+        }
+        break;
+      case 'online':
+        $('.stream-container').empty();
+        for (var i = 0; i < streams.length; i++) {
+          if (streams[i].online) {
+            displayStreamInfo(streams[i], i);
+          }
+        }
+        break;
+      case 'offline':
+        $('.stream-container').empty();
+        for (var i = 0; i < streams.length; i++) {
+          if (!streams[i].online) {
+            displayStreamInfo(streams[i], i);
+          }
+        }
+        break;
+      default:
+        break;
+    }
   });
 });
