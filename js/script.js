@@ -2,7 +2,7 @@ $(function() {
 
   var btnChecked = 'all';
   var favouriteStreams = ['c_a_k_e', 'lasqa', 'mehvsgame',
-                          'mob5ter', 'tysegall', 'relaxbeats'];
+                          'mob5ter', 'tysegall', 'relaxbeats', 'freecodecamp'];
 
   var streams = [];
   $.ajax({
@@ -21,10 +21,10 @@ $(function() {
         name: streamers[i].display_name,
         logo: streamers[i].logo,
         online: false,
-        status: ''
+        status: '',
+        game: ''
       });
-      // console.log(streamerName);
-      // console.log(streamerLogo);
+
      }
      console.log(streams);
 
@@ -45,6 +45,7 @@ $(function() {
           if (data.streams[j].channel.display_name == streams[i].name) {
             streams[i].online = true;
             streams[i].status = data.streams[j].channel.status;
+            streams[i].game = data.streams[j].game;
           }
         }
         displayStreamInfo(streams[i], i);
@@ -55,12 +56,13 @@ $(function() {
 
   function displayStreamInfo(stream, id) {
     var streamStatus = (stream.online) ? stream.status : 'Offline';
+    var streamGame = (stream.online) ? stream.game + ' | ' : '';
     $('.stream-container').append(
       '<div class="stream">' +
         '<img class="stream-logo" src="' + stream.logo + '" alt="stream-logo">' +
         '<div class="stream-data">' +
           '<a target="_blank" href="https://twitch.tv/' + stream.name + '" class="streamer">' + stream.name + '</a>' +
-          '<p class="stream-info">' + streamStatus + '</p>' +
+          '<p class="stream-info">' + streamGame + streamStatus + '</p>' +
         '</div>' +
       '</div>'
     );
